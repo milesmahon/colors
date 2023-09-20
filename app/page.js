@@ -1,6 +1,6 @@
 "use client";
 
-import Title from "./components/title";
+import Title from "./components/Title";
 import SearchResults from "./components/SearchResults";
 import GuessContainer from "./components/GuessContainer";
 import { useState } from "react";
