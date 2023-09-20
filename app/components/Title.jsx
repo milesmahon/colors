@@ -1,5 +1,7 @@
 export default function Title() {
     return (
-        <h1 className="text-red-600">Chromexto</h1>
+        <div>
+            <h1 className="text-center">Chromexto</h1>
+        </div>
     );
 }

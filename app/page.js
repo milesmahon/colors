@@ -7,23 +7,27 @@ import { useState } from "react";
 import Fuse from "fuse.js";
 import colors from "../public/colors.json";
 import fuseIndex from "../public/fuse-index.json";
+import confetti from "canvas-confetti";
 
 export default function Home() {
   const index = Fuse.parseIndex(fuseIndex);
-  const trueColor = { name: "Bubblegum Crisis", hex: "#eeccee" };
+  const trueColor = colors[Math.floor(Math.random() * colors.length)];
   const [searchTerm, setSearchTerm] = useState("");
   const [guesses, setGuesses] = useState([]); // [{color: "red", correct: true}, {color: "blue", correct: false}
   const changeSearchTerm = (e) => {
     setSearchTerm(e);
   };
-  const guessColor = (color) => {
-    console.log(color);
+  const guessColor = () => {
     const options = {
       keys: ["name"],
     };
     const fuse = new Fuse(colors, options, index);
     var results = fuse.search(searchTerm);
     var guess = results[0].item;
+    console.log(guesses);
+    if (guesses.some((g) => g.color === guess.name)) {
+      return;
+    }
     var distance = compareToTrueColor(guess);
 
     setGuesses([
@@ -35,6 +39,10 @@ export default function Home() {
         distance: distance,
       },
     ]);
+    setSearchTerm("");
+    if (distance == 0) {
+      confetti();
+    }
   };
 
   const compareToTrueColor = (guess) => {
@@ -64,25 +72,29 @@ export default function Home() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    guessColor(searchTerm);
+    guessColor();
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Title />
-      <form onSubmit={handleSubmit}>
-        <input
-          className="border-2 border-gray-300 text-red-950 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
-          value={searchTerm}
-          onChange={(e) => changeSearchTerm(e.target.value)}
-          placeholder="Guess a color"
-          type="text"
-          autoComplete="off"
-          enterKeyHint="send"
-        />
-      </form>
-      <GuessContainer guesses={guesses} />
-      <SearchResults searchTerm={searchTerm} />
+    <main className="m-12 grid grid-cols-5 min-h-screen">
+      <div className="text-center col-span-4">
+        <Title />
+        <form className="my-10" onSubmit={handleSubmit}>
+          <input
+            className="text-center h-10 px-5 rounded-lg text-sm focus:outline-none bg-slate-800 text-gray-400 placeholder:text-gray-600"
+            value={searchTerm}
+            onChange={(e) => changeSearchTerm(e.target.value)}
+            placeholder="Guess a color"
+            type="text"
+            autoComplete="off"
+            enterKeyHint="send"
+          />
+          <SearchResults searchTerm={searchTerm} />
+        </form>
+      </div>
+      <div className="text-center col-span-1">
+        <GuessContainer guesses={guesses} />
+      </div>
     </main>
   );
 }

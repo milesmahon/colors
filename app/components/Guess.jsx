@@ -1,6 +1,6 @@
 export default function Guess({ distance, guess }) {
     return (
-        <div className="text-red justify-center">
+        <div className="justify-center">
             <p style={{color: `${guess.hex}`}}>{guess.color}: {distance}</p>
         </div>
     )

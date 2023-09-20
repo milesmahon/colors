@@ -16,9 +16,9 @@ export default function SearchResults({ searchTerm }) {
     results.length = Math.min(results.length, 10)
   
     return (
-        <div>
+        <div className="my-6">
         {results.map((color) => (
-            <p style={{color: `${color.hex}`}} key="color.item.name" className="text-2xl">{color.name}</p>))
+            <p style={{color: `${color.hex}`}} key={color.name}>{color.name}</p>))
         }
         </div>
     )
