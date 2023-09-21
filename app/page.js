@@ -12,7 +12,7 @@ import confetti from "canvas-confetti";
 
 const trueColor = trueColors[Math.floor(Math.random() * trueColors.length)];
 trueColor.lab = hex2lab(trueColor.hex);
-console.log(trueColor);
+// console.log(trueColor);
 
 // https://github.com/antimatter15/rgb-lab/tree/master
 function hex2lab(hex) {
