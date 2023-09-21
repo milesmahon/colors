@@ -48,6 +48,7 @@ export default function Home() {
   }
 
   const guessColor = () => {
+    debug();
     const options = {
       keys: ["name"],
     };
@@ -72,6 +73,20 @@ export default function Home() {
     if (distance == 0) {
       confetti();
     }
+  };
+
+  const debug = () => {
+    const guessLab = hex2lab("#000000");
+    const trueLab = hex2lab("#ffffff");
+    console.log(
+      Math.floor(
+        Math.sqrt(
+          Math.pow(guessLab.l - trueLab.l, 2) +
+            Math.pow(guessLab.a - trueLab.a, 2) +
+            Math.pow(guessLab.b - trueLab.b, 2)
+        )
+      )
+    );
   };
 
   const compareToTrueColor = (guess) => {
