@@ -1,0 +1,182 @@
+[
+    {
+      "color": "Onion Skin",
+      "hex": "#eeeddf",
+      "distance": 1
+    },
+    {
+      "color": "Dark Chocolate",
+      "hex": "#624a49",
+      "distance": 12
+    },
+    {
+      "color": "Honeycomb",
+      "hex": "#ddaa11",
+      "distance": 13
+    },
+    {
+      "color": "Lobster",
+      "hex": "#bb240c",
+      "distance": 28
+    },
+    {
+      "color": "Succulent",
+      "hex": "#8ba477",
+      "distance": 31
+    },
+    {
+      "color": "Dark Cyan",
+      "hex": "#008b8b",
+      "distance": 31
+    },
+    {
+      "color": "Pink Blush",
+      "hex": "#f4acb6",
+      "distance": 33
+    },
+    {
+      "color": "Pastel Blue",
+      "hex": "#a2bffe",
+      "distance": 35
+    },
+    {
+      "color": "Cherry",
+      "hex": "#cf0234",
+      "distance": 36
+    },
+    {
+      "color": "Pastel Orange",
+      "hex": "#ff964f",
+      "distance": 40
+    },
+    {
+      "color": "Cotton Candy",
+      "hex": "#ffbcd9",
+      "distance": 40
+    },
+    {
+      "color": "Pastel Green",
+      "hex": "#77dd77",
+      "distance": 42
+    },
+    {
+      "color": "Asparagus",
+      "hex": "#77ab56",
+      "distance": 43
+    },
+    {
+      "color": "Pasta",
+      "hex": "#f7dfaf",
+      "distance": 43
+    },
+    {
+      "color": "Pale Sky",
+      "hex": "#bdf6fe",
+      "distance": 44
+    },
+    {
+      "color": "Cranberry",
+      "hex": "#9e003a",
+      "distance": 47
+    },
+    {
+      "color": "Pastel Brown",
+      "hex": "#836953",
+      "distance": 51
+    },
+    {
+      "color": "Cocoa",
+      "hex": "#875f42",
+      "distance": 54
+    },
+    {
+      "color": "Blueberry",
+      "hex": "#464196",
+      "distance": 58
+    },
+    {
+      "color": "Forest",
+      "hex": "#0b5509",
+      "distance": 59
+    },
+    {
+      "color": "Pine",
+      "hex": "#2b5d34",
+      "distance": 71
+    },
+    {
+      "color": "Cotton Ball",
+      "hex": "#f2f7fd",
+      "distance": 76
+    },
+    {
+      "color": "Lox",
+      "hex": "#ec9079",
+      "distance": 82
+    },
+    {
+      "color": "Deep Sky Blue",
+      "hex": "#0d75f8",
+      "distance": 83
+    },
+    {
+      "color": "Blackberry",
+      "hex": "#43182f",
+      "distance": 85
+    },
+    {
+      "color": "Black Cherry",
+      "hex": "#2c1620",
+      "distance": 85
+    },
+    {
+      "color": "Blood Orange",
+      "hex": "#d1001c",
+      "distance": 86
+    },
+    {
+      "color": "Dark Orange",
+      "hex": "#c65102",
+      "distance": 89
+    },
+    {
+      "color": "Chili Pepper",
+      "hex": "#ac1e3a",
+      "distance": 89
+    },
+    {
+      "color": "Avocado",
+      "hex": "#568203",
+      "distance": 98
+    },
+    {
+      "color": "Acid Green",
+      "hex": "#8ffe09",
+      "distance": 103
+    },
+    {
+      "color": "Coral",
+      "hex": "#ff7f50",
+      "distance": 104
+    },
+    {
+      "color": "Bee Yellow",
+      "hex": "#feff32",
+      "distance": 118
+    },
+    {
+      "color": "Fire Engine",
+      "hex": "#fe0002",
+      "distance": 131
+    },
+    {
+      "color": "Cream",
+      "hex": "#ffffc2",
+      "distance": 157
+    },
+    {
+      "color": "Blue",
+      "hex": "#0000ff",
+      "distance": 221
+    }
+  ]

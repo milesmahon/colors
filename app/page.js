@@ -6,13 +6,43 @@ import GuessContainer from "./components/GuessContainer";
 import { useState } from "react";
 import Fuse from "fuse.js";
 import colors from "../public/colors.json";
+import trueColors from "../public/good_colors.json";
 import fuseIndex from "../public/fuse-index.json";
 import confetti from "canvas-confetti";
 
+const trueColor = trueColors[Math.floor(Math.random() * trueColors.length)];
+trueColor.lab = hex2lab(trueColor.hex);
+console.log(trueColor);
+
+// https://github.com/antimatter15/rgb-lab/tree/master
+function hex2lab(hex) {
+  hex = hex.replace("#", "");
+
+  // Convert the red, green, and blue components from hex to decimal
+  // you can substring instead of slice as well
+  var r = parseInt(hex.slice(0, 2), 16) / 255;
+  var g = parseInt(hex.slice(2, 4), 16) / 255;
+  var b = parseInt(hex.slice(4, 6), 16) / 255;
+
+  var x, y, z;
+
+  r = r > 0.04045 ? Math.pow((r + 0.055) / 1.055, 2.4) : r / 12.92;
+  g = g > 0.04045 ? Math.pow((g + 0.055) / 1.055, 2.4) : g / 12.92;
+  b = b > 0.04045 ? Math.pow((b + 0.055) / 1.055, 2.4) : b / 12.92;
+
+  x = (r * 0.4124 + g * 0.3576 + b * 0.1805) / 0.95047;
+  y = (r * 0.2126 + g * 0.7152 + b * 0.0722) / 1.0;
+  z = (r * 0.0193 + g * 0.1192 + b * 0.9505) / 1.08883;
+
+  x = x > 0.008856 ? Math.pow(x, 1 / 3) : 7.787 * x + 16 / 116;
+  y = y > 0.008856 ? Math.pow(y, 1 / 3) : 7.787 * y + 16 / 116;
+  z = z > 0.008856 ? Math.pow(z, 1 / 3) : 7.787 * z + 16 / 116;
+
+  return { l: 116 * y - 16, a: 500 * (x - y), b: 200 * (y - z) };
+}
+
 export default function Home() {
   const index = Fuse.parseIndex(fuseIndex);
-  const trueColor = colors[Math.floor(Math.random() * colors.length)];
-  trueColor.lab = hex2lab(trueColor.hex);
   const [searchTerm, setSearchTerm] = useState("");
   const [guesses, setGuesses] = useState([]); // [{color: "red", correct: true}, {color: "blue", correct: false}
 
@@ -20,37 +50,10 @@ export default function Home() {
     setSearchTerm(e);
   };
 
-  // https://github.com/antimatter15/rgb-lab/tree/master
-  function hex2lab(hex) {
-    hex = hex.replace("#", "");
-
-    // Convert the red, green, and blue components from hex to decimal
-    // you can substring instead of slice as well
-    var r = parseInt(hex.slice(0, 2), 16) / 255;
-    var g = parseInt(hex.slice(2, 4), 16) / 255;
-    var b = parseInt(hex.slice(4, 6), 16) / 255;
-
-    var x, y, z;
-
-    r = r > 0.04045 ? Math.pow((r + 0.055) / 1.055, 2.4) : r / 12.92;
-    g = g > 0.04045 ? Math.pow((g + 0.055) / 1.055, 2.4) : g / 12.92;
-    b = b > 0.04045 ? Math.pow((b + 0.055) / 1.055, 2.4) : b / 12.92;
-
-    x = (r * 0.4124 + g * 0.3576 + b * 0.1805) / 0.95047;
-    y = (r * 0.2126 + g * 0.7152 + b * 0.0722) / 1.0;
-    z = (r * 0.0193 + g * 0.1192 + b * 0.9505) / 1.08883;
-
-    x = x > 0.008856 ? Math.pow(x, 1 / 3) : 7.787 * x + 16 / 116;
-    y = y > 0.008856 ? Math.pow(y, 1 / 3) : 7.787 * y + 16 / 116;
-    z = z > 0.008856 ? Math.pow(z, 1 / 3) : 7.787 * z + 16 / 116;
-
-    return { l: 116 * y - 16, a: 500 * (x - y), b: 200 * (y - z) };
-  }
-
   const guessColor = () => {
-    debug();
     const options = {
       keys: ["name"],
+      shouldSort: true,
     };
     const fuse = new Fuse(colors, options, index);
     var results = fuse.search(searchTerm);
@@ -75,19 +78,19 @@ export default function Home() {
     }
   };
 
-  const debug = () => {
-    const guessLab = hex2lab("#000000");
-    const trueLab = hex2lab("#ffffff");
-    console.log(
-      Math.floor(
-        Math.sqrt(
-          Math.pow(guessLab.l - trueLab.l, 2) +
-            Math.pow(guessLab.a - trueLab.a, 2) +
-            Math.pow(guessLab.b - trueLab.b, 2)
-        )
-      )
-    );
-  };
+  // const debug = () => {
+  //   const guessLab = hex2lab("#000000");
+  //   const trueLab = hex2lab("#ffffff");
+  //   console.log(
+  //     Math.floor(
+  //       Math.sqrt(
+  //         Math.pow(guessLab.l - trueLab.l, 2) +
+  //           Math.pow(guessLab.a - trueLab.a, 2) +
+  //           Math.pow(guessLab.b - trueLab.b, 2)
+  //       )
+  //     )
+  //   );
+  // };
 
   const compareToTrueColor = (guess) => {
     const guessLab = hex2lab(guess.hex);
