@@ -16,10 +16,10 @@ export default function SearchResults({ searchTerm }) {
     results.length = Math.min(results.length, 10)
   
     return (
-        <div className="my-6">
-        {results.map((color) => (
-            <p style={{color: `${color.hex}`}} key={color.name}>{color.name}</p>))
-        }
+        <div className="bg-slate-800 bg-opacity-80 rounded-lg">
+            {results.map((color) => (
+                <p style={{color: `${color.hex}`}} key={color.name}>{color.name}</p>))
+            }
         </div>
     )
 }

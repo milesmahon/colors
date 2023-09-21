@@ -76,12 +76,13 @@ export default function Home() {
   };
 
   return (
-    <main className="m-12 grid grid-cols-5 min-h-screen">
-      <div className="text-center col-span-4">
-        <Title />
-        <form className="my-10" onSubmit={handleSubmit}>
+    <main className="mt-60 m-12 min-h-screen overflow-hidden">
+      <GuessContainer guesses={guesses} />
+      <Title />
+      <div className="text-center z-50">
+        <form className="mt-10 opacity-90" onSubmit={handleSubmit}>
           <input
-            className="text-center h-10 px-5 rounded-lg text-sm focus:outline-none bg-slate-800 text-gray-400 placeholder:text-gray-600"
+            className="text-center w-56 h-10 px-5 rounded-lg text-sm focus:outline-none bg-slate-800 text-gray-400 placeholder:text-gray-600"
             value={searchTerm}
             onChange={(e) => changeSearchTerm(e.target.value)}
             placeholder="Guess a color"
@@ -89,11 +90,10 @@ export default function Home() {
             autoComplete="off"
             enterKeyHint="send"
           />
-          <SearchResults searchTerm={searchTerm} />
         </form>
-      </div>
-      <div className="text-center col-span-1">
-        <GuessContainer guesses={guesses} />
+        <div className="justify-center align-center m-auto text-center mx-auto w-56">
+          <SearchResults searchTerm={searchTerm} />
+        </div>
       </div>
     </main>
   );
