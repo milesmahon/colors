@@ -9,6 +9,7 @@ import colors from "../public/colors.json";
 import trueColors from "../public/good_colors.json";
 import fuseIndex from "../public/fuse-index.json";
 import confetti from "canvas-confetti";
+import Menu from "./components/Menu";
 
 const trueColor = trueColors[Math.floor(Math.random() * trueColors.length)];
 trueColor.lab = hex2lab(trueColor.hex);
@@ -75,7 +76,71 @@ export default function Home() {
     setSearchTerm("");
     if (distance == 0) {
       confetti();
+      return;
     }
+    if (guesses.length > 0 && guesses.length % 10 == 0) {
+      giveHint(guesses[0]);
+    }
+  };
+
+  const hintDistance = (guess) => {
+    const guessHex = guess.hex.replace("#", "");
+    const r = parseInt(guessHex.slice(0, 2), 16);
+    const g = parseInt(guessHex.slice(2, 4), 16);
+    const b = parseInt(guessHex.slice(4, 6), 16);
+
+    const trueHex = trueColor.hex.replace("#", "");
+    const trueR = parseInt(trueHex.slice(0, 2), 16);
+    const trueG = parseInt(trueHex.slice(2, 4), 16);
+    const trueB = parseInt(trueHex.slice(4, 6), 16);
+
+    const rDistance = r - trueR;
+    const gDistance = g - trueG;
+    const bDistance = b - trueB;
+
+    if (
+      Math.abs(rDistance) > Math.abs(gDistance) &&
+      Math.abs(rDistance) > Math.abs(bDistance)
+    ) {
+      if (rDistance > 0) {
+        return "more red";
+      }
+      return "less red";
+    } else if (
+      Math.abs(gDistance) > Math.abs(rDistance) &&
+      Math.abs(gDistance) > Math.abs(bDistance)
+    ) {
+      if (gDistance > 0) {
+        return "more green";
+      }
+      return "less green";
+    } else {
+      if (bDistance > 0) {
+        return "more blue";
+      }
+      return "less blue";
+    }
+  };
+
+  const giveHint = (guess) => {
+    console.log(guess);
+    const hints = [
+      "maybe ",
+      "what if it was ",
+      "i think it's ",
+      "what about ",
+      "how about ",
+    ];
+    const hint = hints[Math.floor(Math.random() * hints.length)];
+
+    // get hint container
+    const hintContainer = document.getElementById("hint-container");
+    hintContainer.innerHTML = hint + hintDistance(guess);
+    // fade out hint container over 10 seconds
+    hintContainer.style.opacity = 1;
+    setTimeout(() => {
+      hintContainer.style.opacity = 0;
+    }, 10000);
   };
 
   // const debug = () => {
@@ -112,12 +177,17 @@ export default function Home() {
 
   return (
     <main className="mt-60 m-12 min-h-screen overflow-hidden">
+      <p
+        id="hint-container"
+        className="absolute top-10 text-center left-40 text-gray-400"
+      ></p>
+      <Menu />
       <GuessContainer guesses={guesses} />
       <Title />
       <div className="text-center z-50">
         <form className="mt-10 opacity-90" onSubmit={handleSubmit}>
           <input
-            className="text-center w-56 h-10 px-5 rounded-lg text-sm focus:outline-none bg-slate-800 text-gray-400 placeholder:text-gray-600"
+            className="text-center w-56 h-10 px-5 rounded-lg text-sm focus:outline-none bg-secondary text-primary placeholder:text-primary"
             value={searchTerm}
             onChange={(e) => changeSearchTerm(e.target.value)}
             placeholder="Guess a color"
